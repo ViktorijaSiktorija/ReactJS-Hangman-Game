@@ -1,13 +1,218 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: 'Hanken Grotesk', Arial, sans-serif;
+  background-color: #262626;
+  color: #d9d9d9;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 23px 57px;
+}
+
+.header-div {
+  width: 352px;
+  height: 144px;
+  text-align: center;
+  margin-bottom: 36px;
+  justify-content: center;
+}
+
+.header-div > .title {
+  height: 26px;
+  font-size: 20px;
+  color: #f9f4da;
+  font-weight: normal;
+}
+
+.header-div > .description {
+  font-size: 14px;
+  color: #8e8e8e;
+  height: 36px;
+  margin-bottom: 20px;
+}
+
+.header-div > .farewell {
+  background-color: #7a5ea7;
+  border: 1px dashed #323232;
+  max-height: 60px;
+}
+
+.header-div > .farewell-message {
+  color: #f9f4da;
+  font-style: italic;
+  font-weight: 400;
+  margin: 15;
+  font-size: 16px;
+}
+
+.header-div > .won {
+  background-color: #10a95b;
+  color: #f9f4da;
+  max-width: 350px;
+  width: 100%;
+  max-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.header-div > .lost {
+  background-color: #ba2a2a;
+  color: #f9f4da;
+  max-width: 350px;
+  width: 100%;
+  max-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.header-div > h1 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 2px;
+}
+
+.header-div > p {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 5px;
+}
+
+.languages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto; /* Centers the whole .languages-list */
+  margin-bottom: 36px;
+}
+
+.chip {
+  position: relative;
+  display: inline-block;
+  min-width: 10%;
+  height: 25px;
+  border-radius: 2px;
+  padding: 4.5px 8px;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Dimmed overlay with skull on "lost" languages */
+.chip.lost::before {
+  content: '💀';
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 0.85rem;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.word {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 36px;
+}
+
+.word > .letter-box {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f9f4da;
+  background-color: #323232;
+  color: #f9f4da;
+  padding: 6px;
+  box-sizing: border-box;
+  font-family: 'Hanken Grotesk', Arial, sans-serif;
+}
+
+.missed-letter {
+  color: #ec5d49;
+}
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.keyboard > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  margin: 0 0;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-family: 'Hanken Grotesk', Arial, sans-serif;
+  font-weight: 500;
+  box-sizing: border-box;
+  background-color: #fcba29;
+  color: #1e1e1e;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+section.keyboard > button.correct {
+  background-color: #10a95b;
+}
+
+section.keyboard > button.wrong {
+  background-color: #ec5d49;
+}
+
+section.keyboard > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button.new-game {
+  font-family: 'Hanken Grotesk', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #11b5e5;
+  border: 1px solid #d7d7d7;
+  color: #1e1e1e;
+  border-radius: 4px;
+  width: 225px;
+  height: 40px;
+  padding: 6px 12px;
+  display: block;
+  margin-inline: auto;
+  cursor: pointer;
 }

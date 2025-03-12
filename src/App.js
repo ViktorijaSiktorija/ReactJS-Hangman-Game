@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Header from './Header';
+import LanguageChips from './LanguageChips';
+import CurrentWord from './Word';
+import Keyboard from './Keyboard';
+import { languages } from './languages';
+import { getRandomWord } from './utils';
+import Confetti from 'react-confetti';
 
-function App() {
+export default function AssemblyEndgame() {
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
+  const [guessedLetters, setGuessedLetters] = useState([]);
+
+  const wrongGuessCount = guessedLetters.filter(
+    (letter) => !currentWord.includes(letter)
+  ).length;
+
+  const isGameWon = currentWord
+    .split('')
+    .every((letter) => guessedLetters.includes(letter));
+  const isGameLost = wrongGuessCount >= languages.length - 1;
+  const isGameOver = isGameWon || isGameLost;
+
+  const lastGuessedLetter = guessedLetters[guessedLetters.length - 1];
+  const isLastGuessIncorrect =
+    lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
+
+  function startNewGame() {
+    setCurrentWord(getRandomWord());
+    setGuessedLetters([]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      {isGameWon && <Confetti recycle={false} numberOfPieces={1000} />}
+      <Header
+        isGameOver={isGameOver}
+        isGameWon={isGameWon}
+        isGameLost={isGameLost}
+        isLastGuessIncorrect={isLastGuessIncorrect}
+        wrongGuessCount={wrongGuessCount}
+      />
+      <LanguageChips
+        isGameOver={isGameOver}
+        wrongGuessCount={wrongGuessCount}
+      />
+      <CurrentWord
+        currentWord={currentWord}
+        guessedLetters={guessedLetters}
+        isGameLost={isGameLost}
+      />
+      <Keyboard
+        currentWord={currentWord}
+        guessedLetters={guessedLetters}
+        setGuessedLetters={setGuessedLetters}
+        isGameOver={isGameOver}
+      />
+      {isGameOver && (
+        <button className="new-game" onClick={startNewGame}>
+          New Game
+        </button>
+      )}
+    </main>
   );
 }
-
-export default App;
