@@ -2,7 +2,7 @@
 
 Guess the correct word in under 8 guesses
 
-Made with Ract and by following a UI/UX design from Figma
+Made with React, and by following a UI/UX design from Figma
 
 Gameplay
 ![Description](sc1.png)
